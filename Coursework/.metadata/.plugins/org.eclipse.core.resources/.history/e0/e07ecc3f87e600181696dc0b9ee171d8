@@ -1,0 +1,80 @@
+package main;
+import java.util.ArrayList;
+
+public class DanceGroup {
+	private int age;
+	private String ability;
+	private String name;
+	private int danceNumber;
+	private String performer;
+	private int time;
+	private int order;
+	ArrayList<String> dancers = new ArrayList<String>();
+	
+	public DanceGroup() {
+//		danceGroup = System.out.println("1. Pre-primaries: a dance group for 3–4 years old" +
+//										"2. Primaries: a dance group for 5–8 years old" +
+//										"3. Juniors: a dance group for 9–13 years old" + 
+//										"4. Intermediates: a dance group for 14–17 years old" +
+//										"5. Seniors: a dance group for 18–34 years old" +
+//										"6. Cabaret Girls: a dance group for 35–60 years old" +
+//										"7. Happy Tappers: a dance group for 60+ years old");
+		
+	}
+
+	public int getAge() {
+		return age;
+	}
+	
+	public void setAge(int age) {
+		this.age = age;
+	}
+	
+	public String getAbility() {
+		return ability;
+	}
+	
+	public void setAbility(String ability) {
+		this.ability = ability;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public int getDanceNumber() {
+		return danceNumber;
+	}
+	
+	public void setDanceNumber(int danceNumber) {
+		this.danceNumber = danceNumber;
+	}
+	
+	public String getPerformer() {
+		return performer;
+	}
+	
+	public void setPerformer(String performer) {
+		this.performer = performer;
+	}
+	
+	public int getTime() {
+		return time;
+	}
+	
+	public void setTime(int time) {
+		this.time = time;
+	}
+	
+	public int getOrder() {
+		return order;
+	}
+	
+	public void setOrder(int order) {
+		this.order = order;
+	}
+}

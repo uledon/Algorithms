@@ -1,0 +1,38 @@
+package main;
+import java.util.ArrayList;
+
+public class DanceGroup extends Person{
+	private int age;
+	private String ability;
+	private String name;
+	private ArrayList<String> danceGroup;
+	
+	public DanceGroup(int age, String ability, String name) {
+		super();
+	}
+
+	public int getAge() {
+		return age;
+	}
+	
+	public void setAge(int age) {
+		this.age = age;
+	}
+	
+	public String getAbility() {
+		return ability;
+	}
+	
+	public void setAbility(String ability) {
+		this.ability = ability;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+
+}

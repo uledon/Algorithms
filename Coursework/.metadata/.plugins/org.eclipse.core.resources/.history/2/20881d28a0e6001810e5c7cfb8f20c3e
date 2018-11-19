@@ -1,0 +1,13 @@
+package main;
+import java.util.ArrayList;
+public class Person extends DanceGroup{
+	protected int name;
+	protected int age;
+	protected String ability;
+	protected int time;
+
+	public Person() {
+		
+
+	}
+}

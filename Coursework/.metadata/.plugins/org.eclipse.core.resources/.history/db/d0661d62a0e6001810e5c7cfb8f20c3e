@@ -1,0 +1,56 @@
+package main;
+import java.util.ArrayList;
+
+public class Dance extends Person {
+	private int danceNumber;
+	private String name;
+	private int age;
+	private ArrayList<Dance> dance;
+	
+	public Dance(int danceNumber, String name, int age) {
+		dance = new ArrayList<Dance>();
+		this.danceNumber = danceNumber;
+		this.name = name;
+		this.age = age;
+	}
+	
+	public int getDanceNumber() {
+		return danceNumber;
+	}
+
+
+	public void setDanceNumber(int danceNumber) {
+		this.danceNumber = danceNumber;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public int getAge() {
+		return age;
+	}
+
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+
+	public ArrayList<Dance> getDance() {
+		return dance;
+	}
+
+
+	public void setDance(ArrayList<Dance> dance) {
+		this.dance = dance;
+	}
+	
+}

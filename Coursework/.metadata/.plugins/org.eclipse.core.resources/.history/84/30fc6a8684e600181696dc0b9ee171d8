@@ -1,0 +1,64 @@
+package main;
+import java.util.ArrayList;
+
+public abstract class DanceGroup {
+	private static int age;
+	private static String ability;
+	private static String name;
+	private static int danceNumber;
+	private static String performer;
+	private static int time;
+	private static int order;
+	ArrayList<String> danceGroup = new ArrayList();
+	
+	public DanceGroup(int age, String ability, int danceNumber, String performer, int time, int order) {
+		this.age = age;
+		
+	}
+
+	public static int getAge() {
+		return age;
+	}
+	
+	public static void setAge(int age) {
+		DanceGroup.age = age;
+	}
+	
+	public static String getAbility() {
+		return ability;
+	}
+	
+	public static void setAbility(String ability) {
+		DanceGroup.ability = ability;
+	}
+	
+	public static String getName() {
+		return name;
+	}
+	
+	public static void setName(String name) {
+		DanceGroup.name = name;
+	}
+	
+	public static int getDanceNumber() {
+		return danceNumber;
+	}
+	
+	public static void setDanceNumber(int danceNumber) {
+		DanceGroup.danceNumber = danceNumber;
+	}
+	
+	public static String getPerformer() {
+		return performer;
+	}
+	
+	public static void setPerformer(String performer) {
+		DanceGroup.performer = performer;
+	}
+	
+	
+	
+	
+	
+	
+}

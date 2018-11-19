@@ -1,0 +1,17 @@
+package main;
+import java.util.ArrayList;
+
+public class Dance {
+	private int danceNumber;
+	private String name;
+	private int age;
+	private ArrayList<String> dance;
+	
+	
+	public Dance(int danceNumber, String name, int age) {
+		this.danceNumber = danceNumber;
+		this.name = name;
+		this.age = age;
+	}
+	
+}

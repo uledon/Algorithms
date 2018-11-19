@@ -1,0 +1,16 @@
+package main;
+
+import java.util.ArrayList;
+
+public class Dancer {
+	private String name;
+	private int age;
+	private int ability;
+	private String costume;
+	private boolean time;
+	private ArrayList<String> danceGroup;
+	
+	public Dancer(String name, int age, int ability, String costume) {
+		this
+	}
+}

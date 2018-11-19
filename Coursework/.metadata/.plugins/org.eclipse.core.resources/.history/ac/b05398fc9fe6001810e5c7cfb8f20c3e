@@ -1,0 +1,13 @@
+package main;
+import java.util.ArrayList;
+public abstract class Person {
+	protected int name;
+	protected int age;
+	protected String ability;
+	protected int time;
+
+	public Person() {
+		
+
+	}
+}

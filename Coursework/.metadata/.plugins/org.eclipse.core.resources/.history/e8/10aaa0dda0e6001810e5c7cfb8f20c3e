@@ -1,0 +1,41 @@
+package main;
+
+import java.util.ArrayList;
+
+public class Dancer extends Person{
+	private int time;
+	private String costume;
+	
+	
+	public Dancer() {
+		super();
+	}
+
+
+	public String getCostume() {
+		return costume;
+	}
+
+	public void setCostume(String costume) {
+		this.costume = costume;
+	}
+
+	public boolean isTime() {
+		return time;
+	}
+
+	public void setTime(boolean time) {
+		this.time = time;
+	}
+
+	public ArrayList<String> getDancer() {
+		return dancer;
+	}
+
+	public void setDancer(ArrayList<String> dancer) {
+		this.dancer = dancer;
+	}
+	
+	
+	
+}

@@ -1,0 +1,20 @@
+package main;
+import java.util.ArrayList;
+
+public class Dance extends Person {
+	
+	
+	public Dance() {
+		super();
+	}
+	
+	public int getDanceNumber() {
+		return danceNumber;
+	}
+
+
+	public void setDanceNumber(int danceNumber) {
+		this.danceNumber = danceNumber;
+	}
+	
+}

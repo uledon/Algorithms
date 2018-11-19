@@ -1,0 +1,75 @@
+package main;
+import java.util.ArrayList;
+
+public class DanceGroup {
+	private int age;
+	private String ability;
+	private String name;
+	private int danceNumber;
+	private String performer;
+	private int time;
+	private int order;
+	private ArrayList<String> danceGroup;
+	
+	public DanceGroup() {
+		danceGroup = new ArrayList<String>();
+	
+		
+	}
+
+	public int getAge() {
+		return age;
+	}
+	
+	public void setAge(int age) {
+		this.age = age;
+	}
+	
+	public String getAbility() {
+		return ability;
+	}
+	
+	public void setAbility(String ability) {
+		this.ability = ability;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public int getDanceNumber() {
+		return danceNumber;
+	}
+	
+	public void setDanceNumber(int danceNumber) {
+		this.danceNumber = danceNumber;
+	}
+	
+	public String getPerformer() {
+		return performer;
+	}
+	
+	public void setPerformer(String performer) {
+		this.performer = performer;
+	}
+	
+	public int getTime() {
+		return time;
+	}
+	
+	public void setTime(int time) {
+		this.time = time;
+	}
+	
+	public int getOrder() {
+		return order;
+	}
+	
+	public void setOrder(int order) {
+		this.order = order;
+	}
+}

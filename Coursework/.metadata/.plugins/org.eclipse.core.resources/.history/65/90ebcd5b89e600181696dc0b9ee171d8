@@ -1,0 +1,12 @@
+package main;
+
+public class Dancer {
+	private String name;
+	private int age;
+	private int ability;
+	private String costume;
+	
+	public Dancer(String name, int age, int ability, String costume) {
+		
+	}
+}
