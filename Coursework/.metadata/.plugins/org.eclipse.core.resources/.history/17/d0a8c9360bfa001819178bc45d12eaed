@@ -5,8 +5,6 @@ package astaire;
 
 import java.util.Scanner;
 
-import main.DanceController;
-
 /**
  * A simple text-based user interface for the dance show programme generator.
  * 
@@ -30,7 +28,6 @@ public class TUI {
 			getAndProcessUserOption();
 		}
 	}
-
 	public static void main(String[] args){
 		TUI t = new TUI(new DanceController());
 	}

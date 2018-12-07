@@ -30,7 +30,6 @@ public class TUI {
 			getAndProcessUserOption();
 		}
 	}
-
 	public static void main(String[] args){
 		TUI t = new TUI(new DanceController());
 	}

@@ -1,0 +1,34 @@
+package main;
+
+import astaire.Controller;
+
+public class DanceController implements Controller{
+ 
+	public DanceController(){
+		
+	}
+	@Override
+	public String listAllDancersIn(String dance) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String listAllDancesAndPerformers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String checkFeasibilityOfRunningOrder(String filename) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String generateRunningOrder() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
