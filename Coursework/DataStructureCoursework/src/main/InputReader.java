@@ -1,70 +1,149 @@
 package main;
 
-import java.util.Scanner;
-import java.io.File;
+import java.awt.List;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.SortedSet;
+
+import javax.management.RuntimeErrorException;
 
 /**
- * InputReader reads typed text input from the standard text terminal. 
- * The text typed by a user is returned as a String.
+ * InputReader reads typed text input from the standard text terminal. The text
+ * typed by a user is returned as a String.
  * 
- * @author     Michael Kölling and David J. Barnes
- * @author     Modified by Dr A J Beaumont
- * @version    December 2015
+ * @author Mohammed Saqib
+ * @author Modified by E.L. Rahman
+ * @version December 2018
  */
 public class InputReader {
-    private Scanner reader;
 
-    /**
-     * Create a new InputReader that reads text from the text terminal.
-     */
-    public InputReader()
-    {
-        reader = new Scanner(System.in);
-    }
-    
-    /**
-     * Create a new InputReader that reads text from a file.
-     * @param filename The name of the file to read from.
-     */
-    public InputReader(String filename) {
-        try {
-          reader = new Scanner(new File(filename));
-        } catch (FileNotFoundException e) {
-            System.err.println("ERROR: The file called " + filename + 
-                " was not found.");
-            System.err.println("Please ensure the file is in the same folder as your BlueJ project OR provide the full path");
-            System.exit(1);
-        }
-    }
+	private static LinkedHashMap<String, ArrayList<String>> danceGroups = new LinkedHashMap<>();
+	private LinkedHashMap<String, ArrayList<String>> runningOrder = new LinkedHashMap<>();
+	private LinkedHashMap<String, ArrayList<String>> dances = new LinkedHashMap<>();
 
-    /**
-     * Read a line of text from standard input (the text terminal),
-     * and return it as a String.
-     *
-     * @return  A String typed by the user.
-     */
-    public String getTextInput(String prompt)
-    {
-        System.out.print(prompt);         // print prompt
-        String inputLine = reader.nextLine();
-        System.out.println(inputLine);
-        return inputLine;
-    }
+	public InputReader() {
+		// dances = readShowFile("astaireDataFiles/danceShowData_dances.csv");
+		// dances.remove("Dance Name");
+		danceGroups = readShowFile("astaireDataFiles/danceShowData_danceGroups.csv");
+		danceGroups.remove("Dance Group");
+		// runningOrder =
+		// readShowFile("astaireDataFiles/danceShowData_runningOrder.csv");
+		// runningOrder.remove("Dance Name");
+	}
 
-    /**
-     * Read an integer from standard input (the text terminal),
-     * and return it as an int value.
-     *
-     * @return  An int value typed by the user.
-     */
-    public int getIntegerInput(String prompt)
-    {
-        System.out.print(prompt);         // print prompt
-        int number = reader.nextInt();
-        reader.nextLine();
-        System.out.println(number);
-        return number;
-    }
-    
+	public static void main(String[] args) {
+		InputReader ir = new InputReader();
+		// readShowFile("astaireDataFiles/danceShowData_dances.csv");
+		// readShowFile("astaireDataFiles/danceShowData_danceGroups.csv");
+		// readShowFile("astaireDataFiles/danceShowData_runningOrder.csv");
+		//
+	}
+
+	public static LinkedHashMap<String, ArrayList<String>> readShowFile(String fileName) {
+
+		Scanner reader = null;
+		String list = "";
+		//ArrayList<String> lists = new ArrayList<String>();
+		ArrayList<String> names = new ArrayList<String>();
+		ArrayList<String> lists = new ArrayList<String>();
+		String nombres = "";
+		LinkedHashMap<String, ArrayList<String>> danceGroups = new LinkedHashMap<String, ArrayList<String>>();
+		try {
+			reader = new Scanner(new FileReader(fileName));
+			list = reader.nextLine();
+			reader.useDelimiter("\t");
+			list = reader.next();
+			while (reader.hasNextLine()) {
+				list += "\n";
+				
+				reader.useDelimiter("\n");
+				nombres = reader.next();
+				names.add(nombres);
+				reader.useDelimiter("\t");
+				list += reader.next();
+			}
+			
+			danceGroups.put(list, names);
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+	
+//			public static LinkedHashMap<String, ArrayList<String>> readShowFile(String fileName) {
+//
+//				Scanner reader = null;
+//				String list = "";
+//				ArrayList<String> lists = new ArrayList<String>();
+//				ArrayList<String> names = new ArrayList<String>();
+//				LinkedHashMap<String, ArrayList<String>> danceGroups = new LinkedHashMap<String, ArrayList<String>>();
+//				try {
+//					reader = new Scanner(new FileReader(fileName));
+//					list = reader.nextLine();
+//					reader.useDelimiter("\t");
+//					list = reader.next();
+//					while (reader.hasNextLine()) {
+//						list += "\n";
+//						
+//						reader.useDelimiter("\n");
+//						list += reader.next();
+//						
+//						reader.useDelimiter("\t");
+//						
+//						danceGroups.put(list, names);
+//						list += reader.next();
+//					}
+//					
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			// while(list != null) {
+			// //String[] file = list.split("\t");
+			// //String[] dancers = file[1].split(",");
+			// for (int i = 0; i <= 34; i++) {
+			//
+			// list += reader.nextLine();
+			// list += "\n";
+			// list.trim();
+			//
+			// }
+			reader.close();
+			System.out.print(danceGroups);
+
+			System.exit(0);
+
+			// }
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return danceGroups;
+	}
 }

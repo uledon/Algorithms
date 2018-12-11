@@ -1,0 +1,31 @@
+package main;
+import java.util.ArrayList;
+
+
+public class DanceGroup extends Person{
+	private static ArrayList <String> danceGroup = new ArrayList<String>(6);
+	
+	public DanceGroup() {
+		super();
+	}
+	
+	public static void main(String[] args){
+		danceGroup.add(0, "Pre-primaries");
+		danceGroup.add(1, "Primaries");
+		danceGroup.add(2, "Juniors");
+		danceGroup.add(3, "Intermediates");
+		danceGroup.add(4, "Seniors");
+		danceGroup.add(5, "Cabaret Girls");
+		danceGroup.add(6, "Happy Tappers");
+	}
+
+	public ArrayList<String> getDanceGroup() {
+		return danceGroup;
+	}
+
+	public void setDanceGroup(ArrayList<String> danceGroup) {
+		this.danceGroup = danceGroup;
+	}
+
+	
+}

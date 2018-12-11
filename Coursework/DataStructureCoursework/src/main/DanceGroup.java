@@ -1,13 +1,14 @@
 package main;
 import java.util.ArrayList;
 
+
 public class DanceGroup extends Person{
-	private ArrayList <String> danceGroup = new ArrayList();
+	private static ArrayList <String> danceGroup = new ArrayList<String>(6);
 	
 	public DanceGroup() {
 		super();
 	}
-
+	
 	public ArrayList<String> getDanceGroup() {
 		return danceGroup;
 	}
@@ -16,4 +17,5 @@ public class DanceGroup extends Person{
 		this.danceGroup = danceGroup;
 	}
 
+	
 }

@@ -1,0 +1,9 @@
+package main;
+
+import java.util.*;
+
+public class DanceShow {
+	
+	private int danceNumber;
+	private ArrayList <Dance> dances;
+}

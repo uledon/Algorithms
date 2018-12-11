@@ -1,0 +1,607 @@
+package main;
+
+import java.awt.List;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.SortedSet;
+
+import javax.management.RuntimeErrorException;
+
+public class FileInputReader {
+	
+	private LinkedHashMap<String, ArrayList<String>> dances;
+	private LinkedHashMap<String,ArrayList<String>> danceGroups;
+	private LinkedHashMap<String,ArrayList<String>> runningOrder;
+	
+
+	public FileInputReader()
+	{
+		 //instantiate fields
+	    this.dances = new LinkedHashMap<>();
+	    this.danceGroups = new LinkedHashMap<>();
+	    this.runningOrder = new LinkedHashMap<>();
+	    
+	    //set the lists
+	    dances = readFromFiles("DataStructureCoursework/astaireDataFiles/danceShowData_dances.csv");
+	    dances.remove("Dance Name");
+	    danceGroups = readFromFiles("DataStructureCoursework/astaireDataFiles/danceShowData_danceGroups.csv");
+	    danceGroups.remove("Dance Group");
+	    runningOrder =readFromFiles("DataStructureCoursework/astaireDataFiles/danceShowData_runningOrder.csv");
+	    runningOrder.remove("Dance Name");
+	
+	}
+	
+	
+	/*public static ArrayList<String> readFromFiles(ArrayList<String> list, String path) {
+		//read from the dances csv file
+		try {
+				BufferedReader br = new BufferedReader(new FileReader(path));
+				String line = null;
+	        
+	        //set each element in the ArrayList to a line from the csv
+	        while ((line = br.readLine()) != null) {
+	            list.add(line);
+	        }
+	    }
+	    catch (Exception e) {
+	        System.out.println(e.getMessage());
+	    }
+	    
+	    return list;
+	}*/
+	
+	public static LinkedHashMap<String,ArrayList<String>> readFromFiles(String path) {
+		//read from the dances csv file
+		Scanner scanner=null;
+		//ArrayList<String> listCategory1=new ArrayList<String>();
+		String listCategory1="";
+		ArrayList<String> listNames=new ArrayList<String>();
+		LinkedHashMap<String,ArrayList<String>> danceGroups=new LinkedHashMap<String,ArrayList<String>>();
+		try {
+			scanner = new Scanner(new FileReader(path));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("The specified file does not exist.");
+		}
+		
+		
+		while(scanner.hasNextLine())
+		{
+			scanner.useDelimiter("\t");
+			listCategory1=scanner.next().trim();
+			scanner.useDelimiter("\n");
+			String[] allNames=scanner.next().trim().split(",");
+			for (String currentName:allNames)
+			{
+				listNames.add(currentName.trim());
+			}
+			danceGroups.put(listCategory1, listNames);
+			listNames=new ArrayList<>();
+			
+		}
+		scanner.close();
+	    
+	    /*boolean toggle=false;
+	    for (String currentWord:list)
+	    {
+	    	if ()
+	    }*/
+		/*System.out.println(danceGroups.keySet());
+		System.out.println(danceGroups.values());*/
+		return danceGroups;
+	}
+	
+	public ArrayList<String> showPerformersOfDance(String danceName)
+	{
+		ArrayList<String> names=new ArrayList<>();
+		if (!dances.containsKey(danceName))
+		{
+			try {
+				throw new NullPointerException("The dance name does not exist.");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				//System.out.println(e.toString());
+			}
+		}
+		
+		for (String currentLine:dances.get(danceName))
+		{
+			if (danceGroups.containsKey(currentLine))
+			{
+				names.addAll(danceGroups.get(currentLine));
+			}
+			else
+			{
+				names.add(currentLine);
+			}
+		}
+		
+		System.out.println("The Dancers in the "+danceName+" are: "+names.toString());
+		return names;
+		
+	}
+	public LinkedHashMap<String,ArrayList<String>> listAllDancersAlphabetically()
+	{
+		LinkedHashMap<String,ArrayList<String>> result=new LinkedHashMap<>();
+		Comparator<String> stringComparer=new Comparator<String>()
+		{
+			public int compare(String s1, String s2) 
+			{
+				// TODO Auto-generated method stub
+				return s1.compareToIgnoreCase(s2);
+			}
+		};
+		
+		ArrayList<String> allDanceNames=new ArrayList<String>();
+		allDanceNames.addAll(dances.keySet());
+		allDanceNames.sort(stringComparer);
+		
+		for (String currentKey:allDanceNames)
+		{
+			ArrayList<String> nameList=new ArrayList<String>();
+			//nameList=dances.get(currentKey);
+			ArrayList<String> nameListCopy=new ArrayList<String>();
+			nameListCopy=dances.get(currentKey);
+			for (String currentName:nameListCopy)
+			{
+				if (!danceGroups.containsKey(currentName))
+				{
+					
+					//value.sort(stringComparer);
+					//result.put(currentKey, nameList);
+					nameList.add(currentName);
+				}
+				else
+				{
+					//nameList.remove(currentName);
+					nameList.addAll(danceGroups.get(currentName));
+				}
+				
+			}
+			nameList.sort(stringComparer);
+			result.put(currentKey, nameList);
+			result.remove("Dance Name");
+				
+			
+		
+		}
+		
+		System.out.println(result.toString());
+		return result;
+		
+	}
+	
+	public void checkTimeBetweenDances(String filePath,int time)
+	{
+		LinkedHashMap<String, ArrayList<String>> allInfo=new LinkedHashMap<String,ArrayList<String>>();
+		allInfo=readFromFiles(filePath);
+		
+		/*ArrayList<String> allDanceNames=new ArrayList<String>();
+		allDanceNames.addAll(allInfo.keySet());*/
+		allInfo.remove("Dance Name");
+		HashMap<String,Integer> gapChecker =new HashMap<String,Integer>();
+		ArrayList<String> allIssues=new ArrayList<String>();
+		
+		for (String currentKey:allInfo.keySet())
+		{
+			
+			ArrayList<String> names=new ArrayList<>();
+			Set<String> namesCopy=new LinkedHashSet<>();
+			
+			for (String currentLine:dances.get(currentKey))
+			{
+				if (danceGroups.containsKey(currentLine))
+				{
+					names.addAll(danceGroups.get(currentLine));
+					namesCopy.addAll(danceGroups.get(currentLine));
+					for (String currentName:names)
+					{
+						if (!gapChecker.containsKey(currentName))
+						{
+							namesCopy.add(currentName);
+							gapChecker.put(currentName, time);
+						}
+						else
+						{
+							if (gapChecker.get(currentName)>0)
+							{
+								try {
+									if (gapChecker.get(currentName)==1)
+									{
+										throw new Exception(currentName+" can not dance in " + currentKey+", "+currentName+" has to wait "+gapChecker.get(currentName)+" dance before they finish changing their costume.");
+									}
+									else
+										throw new Exception(currentName+" can not dance in " + currentKey+", "+currentName+" has to wait "+gapChecker.get(currentName)+" dances before they finish changing their costume.");
+									
+								} catch (Exception e) {
+									// TODO Auto-generated catch block
+									//e.printStackTrace();
+									allIssues.add(e.toString().substring(21));
+								}
+							}
+							else
+							{
+								namesCopy.add(currentName);
+								//gapChecker.put(currentName, gapChecker.get(currentName)-1);
+							}
+						}
+					}
+				}
+				else
+				{
+					if (!gapChecker.containsKey(currentLine))
+					{
+						namesCopy.add(currentLine);
+						gapChecker.put(currentLine, time);
+					}
+					else
+					{
+						if (gapChecker.get(currentLine)>0)
+						{
+							try {
+								if (gapChecker.get(currentLine)==1)
+								{
+									throw new Exception(currentLine+" can not dance in " + currentKey+", "+currentLine+" has to wait "+gapChecker.get(currentLine)+" dance before they finish changing their costume.");
+								}
+								else
+									throw new Exception(currentLine+" can not dance in " + currentKey+", "+currentLine+" has to wait "+gapChecker.get(currentLine)+" dances before they finish changing their costume.");
+								
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								//e.printStackTrace();
+								allIssues.add(e.toString().substring(21));
+							}
+						}
+					}
+				}
+			}
+			for (String currentName:gapChecker.keySet())
+			{
+				if (!namesCopy.contains(currentName))
+				{
+					if (gapChecker.get(currentName)>0)
+					{
+						gapChecker.put(currentName,gapChecker.get(currentName)-1);
+					}
+				}
+			}
+		
+		}
+		//System.out.println(gapChecker.toString());
+		System.out.println(allInfo);
+		System.out.println(allIssues);
+		
+	}
+	
+	/*public void generateRunningOrder(int time)
+	{
+		LinkedHashMap<String, ArrayList<String>> allInfo=new LinkedHashMap<String,ArrayList<String>>();
+		//allInfo=(LinkedHashMap<String, ArrayList<String>>) dances.clone();
+		allInfo=readFromFiles("Dance_Programme_Generator/src/Data_Files/danceShowData_dances.csv");
+		allInfo.remove("Dance Name");
+		LinkedHashMap<String,ArrayList<String>> runningOrder=new LinkedHashMap<String,ArrayList<String>>();
+		//runningOrder=(LinkedHashMap<String, ArrayList<String>>) dances.clone();
+		runningOrder=readFromFiles("Dance_Programme_Generator/src/Data_Files/danceShowData_dances.csv");
+		runningOrder.remove("Dance Name");
+		//runningOrder.putAll(dances);
+		int loopBreaker=0;
+		boolean done=false;
+		HashMap<String,Integer> gapChecker =new HashMap<String,Integer>();
+		
+		while (done==false)
+		{
+			boolean runningOrderChanged=false;
+			loopBreaker++;
+			for (String currentKey:allInfo.keySet())
+			{
+				
+				ArrayList<String> names=new ArrayList<>();
+				Set<String> namesCopy=new LinkedHashSet<>();
+				
+				for (String currentLine:dances.get(currentKey))
+				{
+					if (danceGroups.containsKey(currentLine))
+					{
+						names.addAll(danceGroups.get(currentLine));
+						namesCopy.addAll(danceGroups.get(currentLine));
+						for (String currentName:names)
+						{
+							if (!gapChecker.containsKey(currentName))
+							{
+								namesCopy.add(currentName);
+								//TODO:THESE IF STATEMENTS CHANGE THE VALUE OF dances.
+								if (runningOrder.get(currentKey).contains(currentLine))
+								{
+									ArrayList<String> tmp=new ArrayList<String>();
+									tmp=runningOrder.get(currentKey);
+									tmp.remove(runningOrder.get(currentKey).get(runningOrder.get(currentKey).indexOf(currentLine)));
+									runningOrder.put(currentKey, tmp);
+									runningOrder.get(currentKey).remove(runningOrder.get(currentKey).get(runningOrder.get(currentKey).indexOf(currentLine)));
+								}
+								if (!runningOrder.get(currentKey).contains(currentName))
+								{
+									ArrayList<String> tmp=new ArrayList<String>();
+									tmp=runningOrder.get(currentKey);
+									tmp.add(currentName);
+									runningOrder.put(currentKey, tmp);
+									runningOrder.get(currentKey).add(currentName);
+								}
+								
+								gapChecker.put(currentName, time);
+							}
+							else
+							{
+								if (gapChecker.get(currentName)>0)
+								{
+									ArrayList<String> copy=runningOrder.get(currentKey);
+									runningOrder.remove(currentKey);
+									runningOrder.put(currentKey, copy);
+									runningOrderChanged=true;
+								}
+								if (gapChecker.get(currentName)>0)
+								{
+									namesCopy.add(currentName);
+									gapChecker.put(currentName, gapChecker.get(currentName)-1);
+								}
+							}
+							//TODO:THESE IF STATEMENTS CHANGE THE VALUE OF dances.
+							if (runningOrder.get(currentKey).contains(currentLine))
+							{
+								ArrayList<String> tmp=new ArrayList<String>();
+								tmp=runningOrder.get(currentKey);
+								tmp.remove(runningOrder.get(currentKey).get(runningOrder.get(currentKey).indexOf(currentLine)));
+								runningOrder.put(currentKey, tmp);
+								runningOrder.get(currentKey).remove(runningOrder.get(currentKey).get(runningOrder.get(currentKey).indexOf(currentLine)));
+								runningOrderChanged=true;
+							}
+							if (!runningOrder.get(currentKey).contains(currentName))
+							{
+								ArrayList<String> tmp=new ArrayList<String>();
+								tmp=runningOrder.get(currentKey);
+								tmp.add(currentName);
+								runningOrder.put(currentKey, tmp);
+								runningOrder.get(currentKey).add(currentName);
+								runningOrderChanged=true;
+							}
+						}
+					}
+					else
+					{
+						if (!gapChecker.containsKey(currentLine))
+						{
+							namesCopy.add(currentLine);
+							gapChecker.put(currentLine, time);
+						}
+						else
+						{
+							if (gapChecker.get(currentLine)>0)
+							{
+								ArrayList<String> copy=runningOrder.get(currentKey);
+								runningOrder.remove(currentKey);
+								runningOrder.put(currentKey,copy);
+								runningOrderChanged=true;
+							}
+							
+							if (gapChecker.get(currentLine)>0)
+							{
+								int tmp=gapChecker.get(currentLine);
+								gapChecker.put(currentLine, tmp-1);
+							}
+						}
+					}
+				}
+				if (runningOrderChanged==true)
+				{
+					for (String currentName:gapChecker.keySet())
+					{
+						if (!namesCopy.contains(currentName))
+						{
+							if (gapChecker.get(currentName)>0)
+							{
+								gapChecker.put(currentName,gapChecker.get(currentName)-1);
+							}
+						}
+					}
+				}
+			
+			}
+			
+			if (((Set<String>)runningOrder.keySet()).equals(((SortedSet<String>)allInfo.keySet())))
+			{
+				done=true;
+			}
+			else
+			{
+				allInfo.clear();
+				allInfo.putAll(runningOrder);
+			}
+			boolean allowDone=true;
+			for (int currentValue:gapChecker.values())
+			{
+				if (currentValue!=0)
+				{
+					allowDone=false;
+					break;
+				}
+			}
+			for (int looper=0;looper<runningOrder.keySet().size();looper++)
+			{
+				if (!runningOrder.keySet().toArray()[looper].equals(allInfo.keySet().toArray()[looper]))
+				{
+					//loopBreaker--;
+					allInfo.clear();
+					allInfo.putAll(runningOrder);
+					break;
+				}
+				if (looper>=runningOrder.keySet().size()-1 &&allowDone==true)
+				{
+					done=true;
+				}
+			}
+				
+			if (loopBreaker>50)
+			{
+				throw new RuntimeException("There was a problem trying to create a running order. Try a smaller gap number.");
+			}
+		}
+		//System.out.println(gapChecker.toString());
+		System.out.println(runningOrder);
+		
+		
+		
+	}*/
+	
+	public void generateRunningOrder(int time)
+	{
+		
+		LinkedHashMap<String, ArrayList<String>> allInfo=new LinkedHashMap<String,ArrayList<String>>();
+		allInfo=listAllDancersAlphabetically();
+		
+		HashMap<String,Integer> gapChecker =new HashMap<String,Integer>();
+		
+		LinkedHashMap<String, ArrayList<String>> runningOrder=new LinkedHashMap<String,ArrayList<String>>();
+		runningOrder=listAllDancersAlphabetically();
+		
+		boolean done=false;
+		int loopBreaker=0;
+		
+		while (done==false)
+		{
+			loopBreaker++;
+			boolean runningOrderChanged=false;
+		
+			for (String currentKey:allInfo.keySet())
+			{
+				
+				ArrayList<String> names=new ArrayList<>();
+				Set<String> namesCopy=new LinkedHashSet<>();
+				
+				for (String currentName:allInfo.get(currentKey))
+				{
+					
+					if (!gapChecker.containsKey(currentName))
+					{
+						namesCopy.add(currentName);
+						gapChecker.put(currentName, time);
+					}
+					else
+					{
+						namesCopy.add(currentName);
+						gapChecker.put(currentName, time);
+						if (gapChecker.get(currentName)>0)
+						{
+							
+							if (!runningOrder.keySet().toArray()[runningOrder.keySet().size()-1].equals(currentKey))
+							{
+								ArrayList<String> tmp=runningOrder.get(currentKey);
+								runningOrder.remove(currentKey);
+								runningOrder.put(currentKey, tmp);
+								runningOrderChanged=true;
+								/*if (loopBreaker>0)
+								{
+									loopBreaker--;
+								}*/
+							}
+						}
+					}
+				}
+				
+				if (runningOrderChanged==true)
+				{
+					for (String currentName:gapChecker.keySet())
+					{
+						if (!namesCopy.contains(currentName))
+						{
+							if (gapChecker.get(currentName)>0)
+							{
+								gapChecker.put(currentName,gapChecker.get(currentName)-1);
+							}
+						}
+					}
+				}
+			
+			}
+			
+			boolean allowDone=true;
+			for (int currentValue:gapChecker.values())
+			{
+				if (currentValue!=0)
+				{
+					allowDone=false;
+					break;
+				}
+			}
+			
+			for (int looper=0;looper<runningOrder.keySet().size();looper++)
+			{
+				if (!runningOrder.keySet().toArray()[looper].equals(allInfo.keySet().toArray()[looper]))
+				{
+					//loopBreaker--;
+					allInfo.clear();
+					allInfo.putAll(runningOrder);
+					break;
+				}
+				if (looper>=runningOrder.keySet().size()-1 &&allowDone==true)
+				{
+					done=true;
+				}
+			}
+			
+			if (loopBreaker>50)
+			{
+				throw new RuntimeException("Problem when creating Running Order. Try smaller gap time.");
+			}
+		}
+		//System.out.println(gapChecker.toString());
+		System.out.println(runningOrder);
+		
+		
+		
+	}
+	
+	
+	public static void main(String[] args)
+	{
+		//ArrayList<String> tmp = new ArrayList<String>();
+		//ArrayList<String> tmp2 = new ArrayList<String>();
+		//ArrayList<String> tmp3 = new ArrayList<String>();
+		//Map<String, ArrayList<String>> tmp4=new HashMap();;
+		
+		
+		//System.out.println(readFromFiles(tmp, "src/Data_Files/danceShowData_dances.csv"));
+
+		//tmp4=(readFromFiles_dancegroups(tmp4, "Dance_Programme_Generator/src/Data_Files/danceShowData_danceGroups.csv"));
+		//tmp4=readFromFiles("Dance_Programme_Generator/src/Data_Files/danceShowData_danceGroups.csv");
+		
+		//System.out.println(readFromFiles(tmp3, "src/Data_Files/danceShowData_runningOrder.csv"));
+		/*for (String current:tmp4)
+		{
+			System.out.println(current);
+		}*/
+		
+		FileInputReader tmp5=new FileInputReader();
+		tmp5.showPerformersOfDance("Singing in the Rain");
+		tmp5.listAllDancersAlphabetically();
+		tmp5.checkTimeBetweenDances("DataStructureCoursework/astaireDataFiles/danceShowData_runningOrder.csv", 2);
+		tmp5.generateRunningOrder(600);
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+}

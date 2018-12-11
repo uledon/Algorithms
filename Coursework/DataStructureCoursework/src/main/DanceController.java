@@ -1,15 +1,25 @@
 package main;
 
+import java.util.*;
 import astaire.Controller;
 
-public class DanceController implements Controller{
- 
-	public DanceController(){
-		
+public class DanceController implements Controller {
+
+	String danceGroup;
+
+
+	public DanceController() {
+//		this.danceGroup = danceGroup;
+//		InputReader iR = new InputReader();
+
 	}
+
 	@Override
 	public String listAllDancersIn(String dance) {
 		// TODO Auto-generated method stub
+		// iR = new
+		// InputReader("astaireDataFiles/danceShowData_danceGroups.csv");
+		InputReader.readShowFile("astaireDataFiles/danceShowData_dances.csv");
 		return null;
 	}
 
@@ -17,16 +27,17 @@ public class DanceController implements Controller{
 	public String listAllDancesAndPerformers() {
 		// TODO Auto-generated method stub
 		return null;
+
 	}
 
 	@Override
-	public String checkFeasibilityOfRunningOrder(String filename) {
+	public String checkFeasibilityOfRunningOrder(String filename, int gaps) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String generateRunningOrder() {
+	public String generateRunningOrder(int gaps) {
 		// TODO Auto-generated method stub
 		return null;
 	}

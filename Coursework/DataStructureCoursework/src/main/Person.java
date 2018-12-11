@@ -1,7 +1,7 @@
 package main;
 
 
-public abstract class Person {
+public class Person {
 	protected int name;
 	protected int age;
 	protected String ability;

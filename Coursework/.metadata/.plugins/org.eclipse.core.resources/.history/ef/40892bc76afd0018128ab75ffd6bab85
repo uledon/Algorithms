@@ -1,0 +1,116 @@
+package main;
+
+import java.awt.List;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.SortedSet;
+
+import javax.management.RuntimeErrorException;
+
+/**
+ * InputReader reads typed text input from the standard text terminal. The text
+ * typed by a user is returned as a String.
+ * 
+ * @author Mohammed Saqib
+ * @author Modified by E.L. Rahman
+ * @version December 2018
+ */
+public class InputReader {
+
+	private static  LinkedHashMap<String, ArrayList<String>> danceGroups = new LinkedHashMap<>();
+	private  LinkedHashMap<String, ArrayList<String>> runningOrder = new LinkedHashMap<>();
+	private  LinkedHashMap<String, ArrayList<String>> dances = new LinkedHashMap<>();
+	public InputReader(){
+		 dances = readShowFile("astaireDataFiles/danceShowData_dances.csv");
+		    dances.remove("Dance Name");
+		    danceGroups = readShowFile("astaireDataFiles/danceShowData_danceGroups.csv");
+		    danceGroups.remove("Dance Group");
+		    runningOrder = readShowFile("astaireDataFiles/danceShowData_runningOrder.csv");
+		    runningOrder.remove("Dance Name");
+	}
+	public static void main(String[] args) {
+		InputReader ir = new InputReader();
+//		 readShowFile("astaireDataFiles/danceShowData_dances.csv");
+//		readShowFile("astaireDataFiles/danceShowData_danceGroups.csv");
+//		readShowFile("astaireDataFiles/danceShowData_runningOrder.csv");
+//	
+	}
+	
+	public static LinkedHashMap<String, ArrayList<String>> readShowFile(String fileName) {
+		
+		Scanner reader = null;
+		String list = "";
+		ArrayList<String> names = new ArrayList<String>();
+		LinkedHashMap<String, ArrayList<String>> danceGroups = new LinkedHashMap<String, ArrayList<String>>();
+		try {
+			reader = new Scanner (new FileReader(fileName));
+			list = reader.nextLine();
+			list = reader.nextLine();
+			while(reader.hasNextLine()){
+//				list += "\n";
+//				list+=reader.nextLine();
+				 
+			 reader.useDelimiter("\t");
+			 reader.useDelimiter("\n");
+			 list = reader.next().trim();
+			 reader.useDelimiter("\n");
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+//			while(list != null) {
+//				//String[] file = list.split("\t");
+//				//String[] dancers = file[1].split(",");
+//				for (int i = 0; i <= 34; i++) {
+//
+//					list += reader.nextLine();
+//					list += "\n";
+//					list.trim();
+//
+//			}
+				reader.close();
+				System.out.print(list);
+
+			System.exit(0);
+
+		//	}
+		} 
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return danceGroups;
+	}
+}

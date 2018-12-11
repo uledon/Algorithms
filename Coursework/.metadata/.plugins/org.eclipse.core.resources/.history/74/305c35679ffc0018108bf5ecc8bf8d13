@@ -1,0 +1,43 @@
+package main;
+
+import java.util.*;
+import astaire.Controller;
+
+public class DanceController implements Controller {
+
+	String danceGroup;
+	InputReader iR;
+
+	public DanceController() {
+		this.danceGroup = danceGroup;
+		InputReader iR = new InputReader();
+	}
+
+	@Override
+	public String listAllDancersIn(String dance) {
+		// TODO Auto-generated method stub
+		iR = new InputReader("astaireDataFiles/danceShowData_danceGroups.csv");
+		return dance;
+	}
+
+	@Override
+	public String listAllDancesAndPerformers() {
+		// TODO Auto-generated method stub
+		return null;
+		//return iR.toString(new InputReader("astaireDataFiles/danceShowData_dances.csv"));
+		
+	}
+
+	@Override
+	public String checkFeasibilityOfRunningOrder(String filename) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String generateRunningOrder() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

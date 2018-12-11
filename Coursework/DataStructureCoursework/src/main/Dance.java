@@ -5,7 +5,7 @@ public class Dance extends Person {
 	
 	private ArrayList <Dance> dance = new ArrayList();
 	
-public Dance() {
+	public Dance() {
 		super();
 	}
 

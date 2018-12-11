@@ -1,0 +1,38 @@
+package main;
+
+import java.io.BufferedReader;
+
+import astaire.Controller;
+
+public class DanceController implements Controller{
+ 
+    String danceGroup;
+	public DanceController(String danceGroup){
+		this.danceGroup = danceGroup;
+	//	BufferedReader iR = new BufferedReader();
+	}
+	@Override
+	public String listAllDancersIn(String dance) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String listAllDancesAndPerformers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String checkFeasibilityOfRunningOrder(String filename) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String generateRunningOrder() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
